@@ -2,7 +2,7 @@
   <h2 class="text-center mt-5">COURSE LIST</h2>
 
   <div class="form-group row">
-    <label class="col-sm-1 col-form-label">Filter By:</label>
+    <label class="col-sm-1 col-form-label text-muted">Filter By:</label>
 
     <div class="col-sm-11">
       <input [(ngModel)]="filter" class="form-control" />
@@ -33,7 +33,13 @@
           <app-star [rating]="course.rating"></app-star>
         </td>
         <td>{{ course.releaseDate | date: "dd/MM/yyyy" }}</td>
-        <td></td>
+        <td>
+          <a
+            [routerLink]="['/courses/edit', course.id]"
+            class="fa fa-edit text-warning"
+          ></a>
+          <a class="fa fa-trash text-danger ms-4"></a>
+        </td>
       </tr>
     </tbody>
   </table>
