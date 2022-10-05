@@ -27,12 +27,12 @@
         </td>
         <td>{{ course.name }}</td>
         <td>{{ course.price | currency: "BRL" }}</td>
-        <td>{{ course.code }}</td>
+        <td>{{ course.code | transformCode }}</td>
         <td>{{ course.duration }}</td>
         <td>
           <app-star [rating]="course.rating"></app-star>
         </td>
-        <td>{{ course.releaseDate | date }}</td>
+        <td>{{ course.releaseDate | date: "dd/MM/yyyy" }}</td>
         <td></td>
       </tr>
     </tbody>

@@ -9,6 +9,7 @@ import { MaterialModule } from './shared/material/material.module';
 import { CourseListComponent } from './core/course/pages/course-list';
 import { StarComponent } from './core/components/star';
 import { FormsModule } from '@angular/forms';
+import { TransformCodePipe } from './core/pipes/transform-code.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     CourseListComponent,
     StarComponent,
+    TransformCodePipe,
   ],
   imports: [
     BrowserModule,

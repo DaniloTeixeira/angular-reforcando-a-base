@@ -8,7 +8,7 @@ export const courses: Course[] = [
     description:
       'Neste curso, os alunos irão obter um grande conhecimento nos principais recursos do CLI.',
     duration: 120,
-    code: 'XLF-1212',
+    code: 'XLF/1212',
     rating: 3,
     price: 12.99,
     imageUrl: '/assets/images/cli.png',
@@ -20,7 +20,7 @@ export const courses: Course[] = [
     description:
       'Neste curso, os alunos irão obter um conhecimento aprofundado sobre os recursos disponíveis no módulo de Forms.',
     duration: 80,
-    code: 'DWQ-3412',
+    code: 'DWQ/3412',
     rating: 3.5,
     price: 24.99,
     imageUrl: '/assets/images/forms.png',
@@ -32,7 +32,7 @@ export const courses: Course[] = [
     description:
       'Neste curso, os alunos irão obter um conhecimento aprofundado sobre os recursos disponíveis no módulo de HTTP.',
     duration: 80,
-    code: 'QPL-0913',
+    code: 'QPL/0913',
     rating: 4.0,
     price: 36.99,
     imageUrl: '/assets/images/http.png',
@@ -44,7 +44,7 @@ export const courses: Course[] = [
     description:
       'Neste curso, os alunos irão obter um conhecimento aprofundado sobre os recursos disponíveis no módulo de Router.',
     duration: 80,
-    code: 'OHP-1095',
+    code: 'OHP/1095',
     rating: 4.5,
     price: 46.99,
     imageUrl: '/assets/images/router.png',
@@ -56,7 +56,7 @@ export const courses: Course[] = [
     description:
       'Neste curso, os alunos irão obter um conhecimento aprofundado sobre os recursos disponíveis sobre Animation.',
     duration: 80,
-    code: 'PWY-9381',
+    code: 'PWY/9381',
     rating: 5,
     price: 56.99,
     imageUrl: '/assets/images/animations.png',
