@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Course } from '../../models/Course';
 import { CourseService } from '../../services';
 
@@ -8,8 +9,11 @@ import { CourseService } from '../../services';
   templateUrl: './edit-course.component.html',
   styleUrls: ['./edit-course.component.scss'],
 })
-export class EditCourseComponent implements OnInit {
+export class EditCourseComponent implements OnInit, OnDestroy {
   course!: Course;
+  courses: Course[] = [];
+
+  destroyed$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -17,22 +21,39 @@ export class EditCourseComponent implements OnInit {
     private courseService: CourseService
   ) {}
 
-  ngOnInit(): void {
-    this.GetCourseById();
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   editCourse(course: Course): void {
-    this.courseService.edit(course);
-    this.router.navigate(['/']);
+    this.courseService
+      .edit(course, course.id)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          console.log('Course updated successfully!');
+          this.redirectToCourses();
+        },
+        error: (e) => console.log('ERROR: ', e.error),
+      });
   }
 
-  private getCourses(): Course[] {
-    return this.courseService.getAll();
+  private redirectToCourses(): void {
+    this.router.navigate(['/']);
   }
 
   private GetCourseById(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
 
-    this.course = this.courseService.getById(id);
+    this.courseService
+      .getById(id)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: (course) => (this.course = course),
+        error: (e) => console.log('ERROR', e.error),
+      });
   }
 }

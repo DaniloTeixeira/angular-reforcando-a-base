@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Course } from '../../models/Course';
 import { CourseService } from '../../services';
 
@@ -7,33 +8,59 @@ import { CourseService } from '../../services';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
 })
-export class CourseListComponent implements OnInit {
-  courses: Course[] = [];
+export class CourseListComponent implements OnInit, OnDestroy {
+  private courses: Course[] = [];
+
+  private filterBy?: string;
 
   filteredCourses: Course[] = [];
 
-  _filterBy?: string;
+  destroyed$ = new Subject<void>();
 
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.setCourses();
+    this.getCourses();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   set filter(value: string) {
-    this._filterBy = value;
+    this.filterBy = value;
 
     this.filteredCourses = this.courses.filter(
-      (c) => c.name.toLowerCase().indexOf(this._filterBy!.toLowerCase()) > -1
+      (c) => c.name.toLowerCase().indexOf(this.filterBy!.toLowerCase()) > -1
     );
   }
 
   get filter(): string {
-    return this._filterBy!;
+    return this.filterBy!;
   }
 
-  private setCourses(): void {
-    this.courses = this.courseService.getAll();
-    this.filteredCourses = this.courses;
+  deleteCourse(id: number): void {
+    this.courseService
+      .delete(id)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          console.log('Course deleted successfully!');
+          this.getCourses();
+        },
+      });
+  }
+
+  private getCourses(): void {
+    this.courseService
+      .getAll()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: (courses) => {
+          this.filteredCourses = courses;
+        },
+        error: (e) => console.log('ERROR: ', e.error),
+      });
   }
 }

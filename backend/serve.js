@@ -1,6 +1,6 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import express from 'express';
+import { json } from 'body-parser';
+import cors from 'cors';
 const app = express();
 
 
@@ -10,7 +10,7 @@ let corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
+app.use(json());
 
 app.listen(3100, () => {
   console.log('Server Started!');

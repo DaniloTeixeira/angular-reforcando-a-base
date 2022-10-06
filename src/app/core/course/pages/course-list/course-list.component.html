@@ -38,7 +38,10 @@
             [routerLink]="['/courses/edit', course.id]"
             class="fa fa-edit text-warning"
           ></a>
-          <a class="fa fa-trash text-danger ms-4"></a>
+          <a
+            class="fa fa-trash text-danger ms-4"
+            (click)="deleteCourse(course.id)"
+          ></a>
         </td>
       </tr>
     </tbody>
