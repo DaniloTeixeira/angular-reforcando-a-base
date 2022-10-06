@@ -80,19 +80,20 @@
   <div class="d-flex justify-content-between mt-5">
     <button
       mat-stroked-button
+      color="secondary"
       [routerLink]="['/courses']"
-      class="btn btn-secondary"
       type="button"
     >
-      Back
+      Back to courses
     </button>
     <button
       mat-raised-button
+      color="primary"
       [disabled]="courseForm.invalid"
-      class="btn btn-primary ms-2"
+      class="ms-2"
       (click)="editCourse(course)"
     >
-      Save
+      Confirm edit
     </button>
   </div>
 </form>
