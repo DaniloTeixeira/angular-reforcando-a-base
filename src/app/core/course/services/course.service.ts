@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { courses } from '../data/course';
 import { Course } from '../models/Course';
 
@@ -6,18 +8,29 @@ import { Course } from '../models/Course';
   providedIn: 'root',
 })
 export class CourseService {
-  getAll(): Course[] {
-    return courses;
+  baseURL = '/api/courses';
+
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.baseURL);
   }
 
-  getById(id: number): Course {
-    return courses.find((course) => course.id === id) as Course;
+  getById(id: number): Observable<Course> {
+    const url = `${this.baseURL}/${id}`;
+
+    return this.http.get<Course>(url);
   }
 
-  edit(course: Course): void {
-    const courses = this.getAll();
-    const index = courses.findIndex((c) => c.id === course.id);
+  edit(payload: Course, id: number): Observable<void> {
+    const url = `${this.baseURL}/${id}`;
 
-    courses[index] = course;
+    return this.http.put<void>(url, payload);
+  }
+
+  delete(id: number): Observable<void> {
+    const url = `${this.baseURL}/${id}`;
+
+    return this.http.delete<void>(url);
   }
 }

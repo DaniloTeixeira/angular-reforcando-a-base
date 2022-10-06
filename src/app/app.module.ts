@@ -13,6 +13,7 @@ import { TransformCodePipe } from './core/pipes/transform-code.pipe';
 import { NavBarComponent } from './shared/nav-bar';
 import { NotFoundComponent } from './core/components/not-found';
 import { EditCourseComponent } from './core/course/pages/edit-course';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { EditCourseComponent } from './core/course/pages/edit-course';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
