@@ -58,6 +58,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: (courses) => {
+          this.courses = courses;
           this.filteredCourses = courses;
         },
         error: (e) => console.log('ERROR: ', e.error),

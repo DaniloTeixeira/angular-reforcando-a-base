@@ -11,7 +11,6 @@ import { CourseService } from '../../services';
 })
 export class EditCourseComponent implements OnInit, OnDestroy {
   course!: Course;
-  courses: Course[] = [];
 
   destroyed$ = new Subject<void>();
 
@@ -21,7 +20,9 @@ export class EditCourseComponent implements OnInit, OnDestroy {
     private courseService: CourseService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getCourseById();
+  }
 
   ngOnDestroy(): void {
     this.destroyed$.next();
@@ -45,7 +46,7 @@ export class EditCourseComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  private GetCourseById(): void {
+  private getCourseById(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
 
     this.courseService
