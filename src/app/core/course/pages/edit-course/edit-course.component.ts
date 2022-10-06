@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Course } from '../../models/Course';
+import { CourseService } from '../../services';
 
 @Component({
   selector: 'app-edit-course',
@@ -7,15 +9,30 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-course.component.scss'],
 })
 export class EditCourseComponent implements OnInit {
-  courseId!: number;
+  course!: Course;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private courseService: CourseService
+  ) {}
 
   ngOnInit(): void {
-    this.setCourseId();
+    this.GetCourseById();
   }
 
-  private setCourseId(): void {
-    this.courseId = +this.route.snapshot.paramMap.get('id')!;
+  editCourse(course: Course): void {
+    this.courseService.edit(course);
+    this.router.navigate(['/']);
+  }
+
+  private getCourses(): Course[] {
+    return this.courseService.getAll();
+  }
+
+  private GetCourseById(): void {
+    const id = +this.route.snapshot.paramMap.get('id')!;
+
+    this.course = this.courseService.getById(id);
   }
 }

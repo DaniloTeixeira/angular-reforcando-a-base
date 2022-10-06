@@ -8,10 +8,11 @@ import { MaterialModule } from './shared/material/material.module';
 import { CourseListComponent } from './core/course/pages/course-list';
 import { StarComponent } from './core/components/star';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TransformCodePipe } from './core/pipes/transform-code.pipe';
 import { NavBarComponent } from './shared/nav-bar';
 import { NotFoundComponent } from './core/components/not-found';
-import { EditCourseComponent } from './core/course/pages/edit-course/edit-course.component';
+import { EditCourseComponent } from './core/course/pages/edit-course';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EditCourseComponent } from './core/course/pages/edit-course/edit-course
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
