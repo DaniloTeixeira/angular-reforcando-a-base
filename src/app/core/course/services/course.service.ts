@@ -22,10 +22,14 @@ export class CourseService {
     return this.http.get<Course>(url);
   }
 
-  edit(payload: Course, id: number): Observable<void> {
+  create(payload: Course): Observable<Course> {
+    return this.http.post<Course>(this.baseURL, payload);
+  }
+
+  edit(payload: Course, id: number): Observable<Course> {
     const url = `${this.baseURL}/${id}`;
 
-    return this.http.put<void>(url, payload);
+    return this.http.put<Course>(url, payload);
   }
 
   delete(id: number): Observable<void> {
