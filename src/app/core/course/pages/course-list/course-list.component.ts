@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { Course } from '../../models/Course';
 import { CourseService } from '../../services';
+import { CreateCourseComponent } from '../create-course';
 
 @Component({
   selector: 'app-course-list',
@@ -17,7 +19,10 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   destroyed$ = new Subject<void>();
 
-  constructor(private courseService: CourseService) {}
+  constructor(
+    private courseService: CourseService,
+    private matDialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getCourses();
@@ -38,6 +43,21 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   get filter(): string {
     return this.filterBy!;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.matDialog.open(CreateCourseComponent, {
+      width: '350px',
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((params) => {
+        if (params?.reload) {
+          this.getCourses();
+        }
+      });
   }
 
   deleteCourse(id: number): void {

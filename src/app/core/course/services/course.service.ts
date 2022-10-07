@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { courses } from '../data/course';
 import { Course } from '../models/Course';
+import { CreateCoursePayload } from '../models/CreateCoursePayload';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class CourseService {
     return this.http.get<Course>(url);
   }
 
-  create(payload: Course): Observable<Course> {
+  create(payload: CreateCoursePayload): Observable<Course> {
     return this.http.post<Course>(this.baseURL, payload);
   }
 

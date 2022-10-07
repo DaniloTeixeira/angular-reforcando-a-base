@@ -1,0 +1,74 @@
+<h2 mat-dialog-title class="text-center my-3">Create course</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="form">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" />
+      <mat-error *ngIf="form.controls.name?.hasError('required')"
+        >Name field is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Price</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="price"
+        currencyMask
+        [options]="{
+          prefix: 'R$',
+          thousands: '.',
+          decimal: ',',
+          align: 'left'
+        }"
+      />
+      <mat-error *ngIf="form.controls.price?.hasError('required')"
+        >Price field is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Rating</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="rating"
+        mask="0"
+        [min]="1"
+        [max]="5"
+        [step]="0.5"
+      />
+      <mat-error *ngIf="form.controls.rating?.hasError('required')">
+        Rating field is required
+      </mat-error>
+      <mat-error *ngIf="form.controls.rating?.hasError('max')">
+        Rating cannot be greater than 5
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      <mat-error *ngIf="form.controls.description?.hasError('required')"
+        >Description field is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions class="d-flex justify-content-between">
+    <button
+      color="secondary"
+      mat-stroked-button
+      mat-dialog-close
+      type="button"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+    <button color="primary" mat-raised-button [disabled]="form.invalid">
+      Save
+    </button>
+  </div>
+</form>
