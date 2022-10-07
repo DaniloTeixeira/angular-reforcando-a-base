@@ -18,6 +18,7 @@ import { EditCourseComponent } from './core/course/pages/edit-course';
 import { CourseListComponent } from './core/course/pages/course-list';
 import { TransformCodePipe } from './core/pipes/transform-code.pipe';
 import { CreateCourseComponent } from './core/course/pages/create-course';
+import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CreateCourseComponent } from './core/course/pages/create-course';
     NotFoundComponent,
     EditCourseComponent,
     CreateCourseComponent,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,
